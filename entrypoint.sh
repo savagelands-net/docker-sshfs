@@ -7,7 +7,7 @@ ssh-keygen -A
 if [ ! -z ${ROOT_PASSWORD} ] && [ "${ROOT_PASSWORD}" != "root" ]; then
     echo "root:${ROOT_PASSWORD}" | chpasswd
 else
-    ROOT_PASSWORD=$(openssl rand -base64 32)
+    ROOT_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 13; echo)
     echo "root:${ROOT_PASSWORD}" | chpasswd
 fi
 
@@ -18,7 +18,7 @@ chmod 600 /root/.ssh/authorized_keys
 
 # check if user is provided
 if [ ! -z ${USER} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [ ! -z ${USER_GROUP_ID} ] && [ -z ${USER_AUTHORIZED_KEY} ]; then
-    useradd -m -u ${USER_ID} -g ${USER_GROUP_ID} -s /bin/bash ${USER}
+    adduser -u ${USER_ID} -G ${USER_GROUP_ID} -s /bin/bash ${USER}
     echo "${USER}:${USER_PASSWORD}" | chpasswd
     mkdir -p /home/${USER}/.ssh
     touch /home/${USER}/.ssh/authorized_keys

@@ -17,7 +17,7 @@ echo ${ROOT_AUTHORIZED_KEY} > /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/authorized_keys
 
 # check if user is provided
-if [ ! -z ${USERNAME} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [ ! -z ${USER_GROUP_ID} ] && [ -z ${USER_AUTHORIZED_KEY} ]; then
+if [ ! -z ${USERNAME} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [ ! -z ${USER_GROUP_ID} ] && [ ! -z ${USER_AUTHORIZED_KEY} ]; then
     adduser -u ${USER_ID} -G ${USER_GROUP_ID} -s /bin/bash ${USERNAME}
     echo "${USERNAME}:${USER_PASSWORD}" | chpasswd
     mkdir -p /home/${USERNAME}/.ssh

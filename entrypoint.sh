@@ -23,7 +23,7 @@ if [ ! -z ${USERNAME} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [
     mkdir -p /home/${USERNAME}/.ssh
     touch /home/${USERNAME}/.ssh/authorized_keys
     echo ${USER_AUTHORIZED_KEY} > /home/${USERNAME}/.ssh/authorized_keys
-    chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
+    chown -R ${USERNAME}:${USER_GROUP} /home/${USERNAME}/.ssh
     chmod 600 /home/${USERNAME}/.ssh
 fi
 

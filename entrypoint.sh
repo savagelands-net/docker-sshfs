@@ -3,14 +3,18 @@
 # generate host keys if not present
 ssh-keygen -A
 
-# check wether a random root-password is provided
-if [ ! -z ${ROOT_PASSWORD} ] && [ -z ${ROOT_AUTHORIZED_KEY} ] && [ "${ROOT_PASSWORD}" != "root" ]; then
+# check whether a random root-password is provided
+if [ ! -z ${ROOT_PASSWORD} ] && [ "${ROOT_PASSWORD}" != "root" ]; then
     echo "root:${ROOT_PASSWORD}" | chpasswd
-    mkdir -p /root/.ssh
-    touch /root/.ssh/authorized_keys
-    echo ${ROOT_AUTHORIZED_KEY} > /root/.ssh/authorized_keys
-    chmod 600 /root/.ssh/authorized_keys
+else
+    ROOT_PASSWORD=$(openssl rand -base64 32)
+    echo "root:${ROOT_PASSWORD}" | chpasswd
 fi
+
+mkdir -p /root/.ssh
+touch /root/.ssh/authorized_keys
+echo ${ROOT_AUTHORIZED_KEY} > /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
 
 # check if user is provided
 if [ ! -z ${USER} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [ ! -z ${USER_GROUP_ID} ] && [ -z ${USER_AUTHORIZED_KEY} ]; then

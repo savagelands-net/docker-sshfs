@@ -17,14 +17,14 @@ echo ${ROOT_AUTHORIZED_KEY} > /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/authorized_keys
 
 # check if user is provided
-if [ ! -z ${USER} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [ ! -z ${USER_GROUP_ID} ] && [ -z ${USER_AUTHORIZED_KEY} ]; then
-    adduser -u ${USER_ID} -G ${USER_GROUP_ID} -s /bin/bash ${USER}
-    echo "${USER}:${USER_PASSWORD}" | chpasswd
-    mkdir -p /home/${USER}/.ssh
-    touch /home/${USER}/.ssh/authorized_keys
-    echo ${USER_AUTHORIZED_KEY} > /home/${USER}/.ssh/authorized_keys
-    chown -R ${USER}:${USER} /home/${USER}/.ssh
-    chmod 600 /home/${USER}/.ssh
+if [ ! -z ${USERNAME} ] && [ ! -z ${USER_PASSWORD} ] && [ ! -z ${USER_ID} ] && [ ! -z ${USER_GROUP_ID} ] && [ -z ${USER_AUTHORIZED_KEY} ]; then
+    adduser -u ${USER_ID} -G ${USER_GROUP_ID} -s /bin/bash ${USERNAME}
+    echo "${USERNAME}:${USER_PASSWORD}" | chpasswd
+    mkdir -p /home/${USERNAME}/.ssh
+    touch /home/${USERNAME}/.ssh/authorized_keys
+    echo ${USER_AUTHORIZED_KEY} > /home/${USERNAME}/.ssh/authorized_keys
+    chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.ssh
+    chmod 600 /home/${USERNAME}/.ssh
 fi
 
 # do not detach (-D), log to stderr (-e), passthrough other arguments

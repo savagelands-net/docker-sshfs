@@ -31,7 +31,7 @@ jobs:
 
       - name: Test
         run: |
-          docker run -e --rm --env ROOT_PASSWORD=MyRootPW123 ${{ env.APP }}:${{ env.TEST_TAG }}
+          docker run -d --rm --env ROOT_PASSWORD=MyRootPW123 ${{ env.APP }}:${{ env.TEST_TAG }}
 
       - name: Build and push
         uses: docker/build-push-action@v6
